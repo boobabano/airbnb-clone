@@ -38,6 +38,10 @@ componentDidMount(){
         <Flat flat={flat}/>
         <Flat flat={flat}/>
       </div>
+
+      {this.state.flats.map((flat) =>{
+              return <Flat flat={flat}/>
+            })}
       */
      <div className ="app">
        <div className="main">

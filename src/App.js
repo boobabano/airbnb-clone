@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 //import logo from './logo.svg';
 import './App.css';
-import Flat from './components/flat'
+import Flat from './components/flat';
+import Marker from './components/marker';
 import GoogleMapReact from 'google-map-react';
 //import './components/hello';
+
 
 class App extends Component {
   constructor(props){
@@ -26,8 +28,8 @@ componentDidMount(){
   
   render() {
     const center = {
-      lat: 45.5017,
-      lng: 73.5673
+      lat: 48.8566,
+      lng: 2.3522
     }
     
     return (
@@ -49,10 +51,14 @@ componentDidMount(){
        </div>
        <div className="map">
        <GoogleMapReact
-              //bootstrapURLKeys={{ key: /* YOUR KEY HERE */ }}
+              bootstrapURLKeys={{ key:'AIzaSyCltvL197zUxyAq1Qwe9Zm311mE5ceLC7I' }}
               center={center}
-              zoom ={6}
-        ></GoogleMapReact>
+              zoom ={14}
+        >
+          {this.state.flats.map((flat)=> {
+            return <Marker lat={flat.lat} lng={flat.lng} text={flat.price}/>
+          })}
+        </GoogleMapReact>
         </div>
      </div>
     );

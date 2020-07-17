@@ -11,7 +11,8 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      flats:[]
+      flats:[],
+      selectedFlat: null
     };
   }
 
@@ -25,11 +26,23 @@ componentDidMount(){
       });
   })
 }
-  
+  selectFlat = (flat) => {
+    console.log(flat);
+    this.setState ({
+      selectFlat:flat
+    })
+  }
   render() {
-    const center = {
+    let center = {
       lat: 48.8566,
       lng: 2.3522
+    }
+
+    if (this.state.selectedFlat){
+      center = {
+        lat: this.state.selectedFlat.lat,
+        lng: this.state.selectedFlat.lng
+      }
     }
     
     return (
@@ -49,7 +62,10 @@ componentDidMount(){
           </div>
           <div className="flats">
             {this.state.flats.map((flat) =>{
-              return <Flat flat={flat}/>
+              return <Flat 
+              key={flat.name} 
+              flat={flat}
+              selectFlat={this.selectFlat}/>
             })}
           </div>
        </div>
@@ -60,7 +76,7 @@ componentDidMount(){
               zoom ={14}
         >
           {this.state.flats.map((flat)=> {
-            return <Marker lat={flat.lat} lng={flat.lng} text={flat.price}/>
+            return <Marker key={flat.name} lat={flat.lat} lng={flat.lng} text={flat.price}/>
           })}
         </GoogleMapReact>
         </div>
